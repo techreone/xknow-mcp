@@ -1,0 +1,48 @@
+{
+  "name": "xknow-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for the XKnow Knowledge Base — search and explore curated, source-backed SEO, SaaS, and LLM-wiki knowledge from any AI agent.",
+  "type": "module",
+  "license": "MIT",
+  "author": "XKnow",
+  "homepage": "https://xknow.org/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techreone/xknow-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "seo",
+    "saas",
+    "knowledge-base",
+    "ai-agents"
+  ],
+  "bin": {
+    "xknow-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:data": "node scripts/build-knowledge.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "prepublishOnly": "npm run build:data && npm run build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.23.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}

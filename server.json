@@ -1,0 +1,22 @@
+{
+  "name": "io.github.techreone/xknow-mcp",
+  "title": "XKnow Knowledge Base",
+  "description": "Search and explore source-backed SEO, SaaS, and LLM-wiki knowledge from the XKnow knowledge base.",
+  "version": "1.0.0",
+  "websiteUrl": "https://xknow.org/mcp",
+  "repository": {
+    "url": "https://github.com/techreone/xknow-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "xknow-mcp",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
