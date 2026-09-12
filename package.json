@@ -1,6 +1,7 @@
 {
   "name": "xknow-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "mcpName": "io.github.techreone/xknow-mcp",
   "description": "MCP server for the XKnow Knowledge Base — search and explore curated, source-backed SEO, SaaS, and LLM-wiki knowledge from any AI agent.",
   "type": "module",
   "license": "MIT",
