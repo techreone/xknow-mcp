@@ -1,6 +1,6 @@
 {
   "name": "xknow-mcp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "mcpName": "io.github.techreone/xknow-mcp",
   "description": "MCP server for the XKnow Knowledge Base — search and explore curated, source-backed SEO, SaaS, and LLM-wiki knowledge from any AI agent.",
   "type": "module",
@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:data": "node scripts/build-knowledge.mjs",
+    "build:data": "node scripts/sync-lint-rules.mjs && node scripts/build-knowledge.mjs",
     "smoke": "node scripts/smoke.mjs",
     "prepublishOnly": "npm run build:data && npm run build",
     "start": "node dist/index.js"

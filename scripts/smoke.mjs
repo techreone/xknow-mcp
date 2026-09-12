@@ -29,7 +29,7 @@ async function run(extraArgs, label, cfg) {
 
   const { tools } = await client.listTools();
   const names = tools.map((t) => t.name).sort();
-  const want = ["cite", "explore_concept", "get_page", "list_topics", "search_knowledge"];
+  const want = ["cite", "explore_concept", "get_page", "lint_rules", "list_topics", "search_knowledge"];
   note(
     want.every((w) => names.includes(w)),
     `${label}: tools registered (${names.join(", ")})`
@@ -49,6 +49,9 @@ async function run(extraArgs, label, cfg) {
 
   const cite = text(await client.callTool({ name: "cite", arguments: { slug: concept } }));
   note(/xknow\.org|vault/i.test(cite), `${label}: cite returns a source`);
+
+  const rules = text(await client.callTool({ name: "lint_rules", arguments: { priority: "P0" } }));
+  note(/P0/.test(rules) && rules.length > 80, `${label}: lint_rules returns the P0 rubric`);
 
   const missing = text(await client.callTool({ name: "get_page", arguments: { slug: "zzz-no-such-note" } }));
   note(/No note found/i.test(missing), `${label}: handles missing note`);

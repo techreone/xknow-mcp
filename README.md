@@ -60,6 +60,7 @@ Then ask your agent something like:
 | `get_page` | Full text of one note by title or slug (preserves `[[wikilinks]]`). |
 | `explore_concept` | A note plus its outbound links and backlinks — walks the knowledge graph. |
 | `list_topics` | Lists every note grouped by section (`seo`, `saas`, `blog`). |
+| `lint_rules` | The XKnow SEO/SaaS content self-check rubric — each rule with priority (P0–P3), reasoning, fix, and the knowledge-base notes that back it. |
 | `cite` | Returns the canonical citation (title, description, URL) for a note. |
 
 ## Two knowledge layers

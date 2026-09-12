@@ -1,0 +1,316 @@
+{
+  "name": "XKnow content self-check rules",
+  "site": "https://xknow.org",
+  "generatedAt": "2026-09-12T01:37:36.254940+00:00",
+  "priorityModel": {
+    "P0": "must fix before publishing — blocks the gate",
+    "P1": "should fix",
+    "P2": "polish",
+    "P3": "optional / low value"
+  },
+  "thresholds": {
+    "title": {
+      "min": 20,
+      "max": 60
+    },
+    "description": {
+      "min": 40,
+      "max": 160
+    },
+    "words": {
+      "guide": 1300,
+      "floor": 600
+    },
+    "wikilinks": {
+      "min": 5,
+      "max": 30
+    },
+    "internalLinks": {
+      "min": 3
+    },
+    "h1": {
+      "exact": 1
+    },
+    "h2": {
+      "min": 2
+    },
+    "keywordDensityPct": {
+      "max": 3.0
+    },
+    "firstParagraphWords": {
+      "max": 120
+    }
+  },
+  "rules": [
+    {
+      "id": "AI_OVERCLAIM",
+      "priority": "P0",
+      "why": "Guaranteed LLM ranking/citation claims are false and erode trust.",
+      "fix": "Report sampled visibility and cite method, never a guarantee.",
+      "kb": [
+        "Generative Engine Optimization (GEO)",
+        "AI Search SEO Automation Workflow",
+        "Google AI Overview",
+        "AI Visibility"
+      ]
+    },
+    {
+      "id": "CANONICAL_ROUTE",
+      "priority": "P0",
+      "why": "A canonical with no built route yields a 404/soft-404 that sitemap publishes.",
+      "fix": "Create the Astro route or fix the canonical to an existing route.",
+      "kb": [
+        "Canonical Tag",
+        "Internal Linking Structure"
+      ]
+    },
+    {
+      "id": "CJK",
+      "priority": "P0",
+      "why": "Site language is enforced to English.",
+      "fix": "Translate remaining CJK characters to English.",
+      "kb": []
+    },
+    {
+      "id": "DEAD_INTERNAL_LINK",
+      "priority": "P0",
+      "why": "A markdown link to a non-existent route is a hard 404.",
+      "fix": "Point the link at an existing route or remove it.",
+      "kb": [
+        "Internal Linking Structure",
+        "Broken-Link-Building"
+      ]
+    },
+    {
+      "id": "DEAD_WIKILINK",
+      "priority": "P0",
+      "why": "A wikilink with no vault target renders as plain text (no link equity, no navigation).",
+      "fix": "Point the wikilink at an existing vault node, or use the correct node name.",
+      "kb": [
+        "Internal Linking Structure",
+        "Internal Link Building"
+      ]
+    },
+    {
+      "id": "DESC_LEN",
+      "priority": "P0",
+      "why": "Descriptions beyond ~160 characters are truncated and lose the answer.",
+      "fix": "Compress to 150-160: keyword + core answer, drop modifiers.",
+      "kb": [
+        "On-Page SEO",
+        "Search Intent Matching"
+      ]
+    },
+    {
+      "id": "EVIDENCE_ID",
+      "priority": "P0",
+      "why": "An evidence id that is not in evidence_index.json is an unverifiable citation.",
+      "fix": "Use an existing ev-XXX id or add the source to the evidence index.",
+      "kb": [
+        "E-E-A-T Standards",
+        "E-A-T (Expertise, Authoritativeness, Trustworthiness)"
+      ]
+    },
+    {
+      "id": "FM_ENUM",
+      "priority": "P0",
+      "why": "Enum fields drive routing, schema, and template selection.",
+      "fix": "Use one of the allowed enum values from lint.config.json.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "FM_REQUIRED",
+      "priority": "P0",
+      "why": "Frontmatter is the machine contract every page is validated against.",
+      "fix": "Add the missing frontmatter field(s) listed in the report.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "FM_UNIQUE_CANONICAL",
+      "priority": "P0",
+      "why": "Two pages sharing a canonical split ranking signals and can deindex one.",
+      "fix": "Give each page a distinct canonical URL that matches its route.",
+      "kb": [
+        "Canonical Tag"
+      ]
+    },
+    {
+      "id": "H1_COUNT",
+      "priority": "P0",
+      "why": "A single H1 names the page topic for crawlers and assistive tech.",
+      "fix": "Keep exactly one body H1 (the title is rendered from frontmatter).",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "SLOP_T1",
+      "priority": "P0",
+      "why": "Hard-block AI filler phrases; they read as machine-written.",
+      "fix": "Rewrite the sentence without the phrase.",
+      "kb": [
+        "De-Slopping AI Writing",
+        "AI Pollution (SEO)"
+      ]
+    },
+    {
+      "id": "EVIDENCE_MISSING",
+      "priority": "P1",
+      "why": "A page citing ev-* inline must list those ids in frontmatter evidence.",
+      "fix": "Backfill frontmatter evidence with the inline-cited ids.",
+      "kb": [
+        "E-E-A-T Standards"
+      ]
+    },
+    {
+      "id": "FM_UNIQUE_DESC",
+      "priority": "P1",
+      "why": "Duplicate meta descriptions reduce click distinctiveness.",
+      "fix": "Rewrite one description around its page-specific promise.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "FM_UNIQUE_KEYWORD",
+      "priority": "P1",
+      "why": "One keyword per page prevents cannibalization.",
+      "fix": "Merge the pages or re-target one keyword.",
+      "kb": [
+        "Keyword Research",
+        "Keyword Landing Pages"
+      ]
+    },
+    {
+      "id": "FM_UNIQUE_TITLE",
+      "priority": "P1",
+      "why": "Duplicate titles compete in the SERP and weaken distinctiveness.",
+      "fix": "Rewrite one title to name its unique angle.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "INTERNAL_LINK_MIN",
+      "priority": "P1",
+      "why": "Cross-page links give crawlers paths and pass topical relevance.",
+      "fix": "Add at least three links to related XKnow pages.",
+      "kb": [
+        "Internal Linking Structure"
+      ]
+    },
+    {
+      "id": "SLOP_T2",
+      "priority": "P1",
+      "why": "Corporate jargon weakens specific, human writing.",
+      "fix": "Use the replacement suggested in the report.",
+      "kb": [
+        "De-Slopping AI Writing"
+      ]
+    },
+    {
+      "id": "TITLE_LEN",
+      "priority": "P1",
+      "why": "Titles beyond ~60 characters truncate in the SERP and lose CTR.",
+      "fix": "Move the primary keyword to the front and cut the tail.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "VAULT_FM",
+      "priority": "P1",
+      "why": "Vault notes feed the knowledge graph and the MCP index.",
+      "fix": "Restore frontmatter/type/brand on the vault note.",
+      "kb": []
+    },
+    {
+      "id": "WIKILINK_COUNT",
+      "priority": "P1",
+      "why": "8-14 wikilinks weave the page into the knowledge graph without stuffing.",
+      "fix": "Add natural inline wikilinks to real vault nodes, or trim the excess.",
+      "kb": [
+        "Internal Linking Structure"
+      ]
+    },
+    {
+      "id": "WORDS_MIN",
+      "priority": "P1",
+      "why": "Pages under the guide floor read as thin and rarely satisfy intent.",
+      "fix": "Expand only where a real sub-question is unanswered.",
+      "kb": [
+        "Content Strategy",
+        "Content Freshness"
+      ]
+    },
+    {
+      "id": "CTA_MISSING",
+      "priority": "P2",
+      "why": "Every page should end with a next step (hub or vault CTA).",
+      "fix": "Add a closing CTA section linking a related page or the vault.",
+      "kb": [
+        "Content Strategy"
+      ]
+    },
+    {
+      "id": "FIRST_PARA_KEYWORD",
+      "priority": "P2",
+      "why": "The opening should confirm the query is answered here.",
+      "fix": "Mention the primary topic or a close variant in the first paragraph if natural.",
+      "kb": [
+        "On-Page SEO",
+        "Search Intent Matching"
+      ]
+    },
+    {
+      "id": "H2_MIN",
+      "priority": "P2",
+      "why": "Subheadings create scannable structure and snippet targets.",
+      "fix": "Add H2 sections every ~300 words.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    },
+    {
+      "id": "KEYWORD_DENSITY",
+      "priority": "P2",
+      "why": "Over ~3% exact-match repetition reads as stuffing.",
+      "fix": "Replace forced repetitions with variants and pronouns.",
+      "kb": [
+        "Keyword Density",
+        "Keyword Stuffing"
+      ]
+    },
+    {
+      "id": "SLOP_T3",
+      "priority": "P2",
+      "why": "Weak qualifiers add length without meaning.",
+      "fix": "Cut or replace with specific language.",
+      "kb": [
+        "De-Slopping AI Writing"
+      ]
+    },
+    {
+      "id": "VAULT_BODY",
+      "priority": "P2",
+      "why": "Very short vault notes carry little reusable knowledge.",
+      "fix": "Expand the note or merge it into a richer one.",
+      "kb": [
+        "Content Freshness"
+      ]
+    },
+    {
+      "id": "H1_TITLE_MATCH",
+      "priority": "P3",
+      "why": "The body H1 and frontmatter title should not silently diverge.",
+      "fix": "Make the body H1 match the frontmatter title.",
+      "kb": [
+        "On-Page SEO"
+      ]
+    }
+  ]
+}

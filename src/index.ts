@@ -2,12 +2,32 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { Doc, KnowledgeBase, loadBundled, loadVault } from "./core/knowledge.js";
 import { findDoc, search } from "./core/search.js";
 import { Graph } from "./core/graph.js";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.2";
+
+interface LintRule {
+  id: string;
+  priority: string;
+  why: string;
+  fix: string;
+  kb: string[];
+}
+
+function loadLintRules(): LintRule[] {
+  try {
+    const url = new URL("../data/lint-rules.json", import.meta.url);
+    const raw = JSON.parse(readFileSync(url, "utf-8"));
+    return Array.isArray(raw.rules) ? raw.rules : [];
+  } catch {
+    return [];
+  }
+}
+
+const LINT_RULES = loadLintRules();
 
 function parseVaultArg(argv: string[]): string | undefined {
   const env = process.env.XKNOW_VAULT;
@@ -156,6 +176,65 @@ server.registerTool(
       parts.push(`## ${sec} (${docs.length})\n${items}`);
     }
     return { content: [{ type: "text", text: parts.join("\n\n") || "No topics." }] };
+  }
+);
+
+server.registerTool(
+  "lint_rules",
+  {
+    title: "Get SEO/SaaS content self-check rules",
+    description:
+      "Return the XKnow content quality rubric: each rule with its priority (P0 blocks publishing), the reasoning, the fix, and the knowledge-base notes that back it. Use this to review a page, a draft, or a site against source-backed SEO/SaaS checks with actionable suggestions.",
+    inputSchema: {
+      priority: z
+        .enum(["P0", "P1", "P2", "P3"])
+        .optional()
+        .describe("Only return rules at this priority (omit for all)"),
+      topic: z
+        .string()
+        .optional()
+        .describe("Filter by topic keyword, e.g. 'internal link', 'meta description', 'evidence'"),
+    },
+  },
+  async ({ priority, topic }) => {
+    if (!LINT_RULES.length) {
+      return { content: [{ type: "text", text: "No lint rules bundled in this build." }] };
+    }
+    const t = topic?.toLowerCase();
+    const rows = LINT_RULES.filter((r) => {
+      if (priority && r.priority !== priority) return false;
+      if (t) {
+        const hay = `${r.id} ${r.why} ${r.fix} ${r.kb.join(" ")}`.toLowerCase();
+        if (!hay.includes(t)) return false;
+      }
+      return true;
+    });
+    if (!rows.length) {
+      return { content: [{ type: "text", text: "No rules matched that filter." }] };
+    }
+    const labels: Record<string, string> = {
+      P0: "P0 — must fix (blocks publishing)",
+      P1: "P1 — should fix",
+      P2: "P2 — polish",
+      P3: "P3 — optional",
+    };
+    const groups: Record<string, LintRule[]> = {};
+    for (const r of rows) (groups[r.priority] ??= []).push(r);
+    const out: string[] = [
+      `XKnow self-check rules (${rows.length}/${LINT_RULES.length})`,
+    ];
+    for (const p of ["P0", "P1", "P2", "P3"]) {
+      const g = groups[p];
+      if (!g) continue;
+      out.push(`\n## ${labels[p] ?? p} (${g.length})`);
+      for (const r of g) {
+        out.push(`\n### ${r.id}`);
+        if (r.why) out.push(`Why: ${r.why}`);
+        if (r.fix) out.push(`Fix: ${r.fix}`);
+        if (r.kb.length) out.push(`Basis: ${r.kb.join(", ")}`);
+      }
+    }
+    return { content: [{ type: "text", text: out.join("\n") }] };
   }
 );
 
