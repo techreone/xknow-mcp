@@ -1,7 +1,7 @@
 {
   "name": "XKnow content self-check rules",
   "site": "https://xknow.org",
-  "generatedAt": "2026-09-12T01:37:36.254940+00:00",
+  "generatedAt": "2026-09-12T01:39:34.643117+00:00",
   "priorityModel": {
     "P0": "must fix before publishing — blocks the gate",
     "P1": "should fix",

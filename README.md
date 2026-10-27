@@ -4,6 +4,8 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-server-8A2BE2)](https://modelcontextprotocol.io)
 
+**[XKnow](https://xknow.org)** · **[MCP server page](https://xknow.org/mcp)** · **[Source](https://github.com/techreone/xknow-mcp)** · [npm](https://www.npmjs.com/package/xknow-mcp) · [MCP Registry](https://registry.modelcontextprotocol.io/servers/io.github.techreone/xknow-mcp)
+
 An MCP server for the **[XKnow Knowledge Base](https://xknow.org/mcp)** — a curated,
 cross-linked body of **SEO, SaaS, and LLM-wiki** knowledge. Give any MCP-capable agent
 (Claude, Cursor, Cline, opencode, and others) the ability to **search and cite** it.

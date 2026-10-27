@@ -14,10 +14,18 @@
   "keywords": [
     "mcp",
     "model-context-protocol",
+    "mcp-server",
     "seo",
     "saas",
     "knowledge-base",
-    "ai-agents"
+    "knowledge-graph",
+    "ai-agents",
+    "llm",
+    "claude",
+    "cursor",
+    "cline",
+    "search",
+    "citations"
   ],
   "bin": {
     "xknow-mcp": "dist/index.js"
